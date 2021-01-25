@@ -17,34 +17,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::resource('/firestore', App\Http\Controllers\FirebaseController::class);
-
 Route::get('/insert', function() {
 	 $stuRef = app('firebase.firestore')->database()->collection('User')->newDocument();
 	 $stuRef->set([
-		'firstname' => 'John',
-		'lastname' => 'Doe',
-		'age'    => 30
+		'firstname' => 'Seven',
+		'lastname' => 'Stac',
+		'age'    => 19
  ]);
  echo "<h1>".'inserted'."</h1>";
 });
 
 Route::get('/display', function(){
-  $student = app('firebase.firestore')->database()->collection('User')->document('7cdf5e1a544d4c2995eb')->snapshot();
+  $student = app('firebase.firestore')->database()->collection('User')->document('166f34ea1c9641dab0a0')->snapshot();
   print_r('Student ID ='.$student->id());
   print_r("<br>". 'Student Name = '.$student->data()['firstname']);
   print_r("<br>".'Student Age = '.$student->data()['age']);
 });
 
 Route::get('/update', function(){
-  $student = app('firebase.firestore')->database()->collection('User')->document('7cdf5e1a544d4c2995eb')
+  $student = app('firebase.firestore')->database()->collection('User')->document('166f34ea1c9641dab0a0')
  ->update([
-  ['path' => 'age', 'value' => '50']
+  ['path' => 'age', 'value' => '18']
  ]);
  echo "<h1>".'updated'."</h1>";
 });
 
 Route::get('/delete', function(){
- app('firebase.firestore')->database()->collection('User')->document('7cdf5e1a544d4c2995eb')->delete();
+ app('firebase.firestore')->database()->collection('User')->document('166f34ea1c9641dab0a0')->delete();
  echo "<h1>".'deleted'."</h1>";
 });
