@@ -46,3 +46,5 @@ Route::get('/delete', function(){
  app('firebase.firestore')->database()->collection('User')->document('166f34ea1c9641dab0a0')->delete();
  echo "<h1>".'deleted'."</h1>";
 });
+
+Route::resource('/crud', App\Http\Controllers\CrudController::class);
