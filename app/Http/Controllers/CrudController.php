@@ -15,7 +15,9 @@ class CrudController extends Controller
   public function index()
   {
     //
-    return view('Crud/index');
+    $students = app('firebase.firestore')->database()->collection('User')->documents();
+    return view('Crud/index',compact('students'));
+    // return dd($students);
   }
 
   /**
@@ -103,7 +105,13 @@ class CrudController extends Controller
   public function update(Request $request, $id)
   {
     //
-    return $request->all();
+    $student = app('firebase.firestore')->database()->collection('User')->document($id)
+   ->update([
+    ['path' => 'firstname', 'value' => $request->firstname],
+    ['path' => 'lastname', 'value' => $request->lastname],
+    ['path' => 'age', 'value' => $request->age],
+   ]);
+   return back();
   }
 
   /**
@@ -115,5 +123,7 @@ class CrudController extends Controller
   public function destroy($id)
   {
     //
+    app('firebase.firestore')->database()->collection('User')->document($id)->delete();
+    return back();
   }
 }
